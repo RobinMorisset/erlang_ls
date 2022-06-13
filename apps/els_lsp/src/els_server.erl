@@ -131,7 +131,11 @@ init([]) ->
 handle_call({set_io_device, IoDevice}, _From, State) ->
     {reply, ok, State#{io_device := IoDevice}};
 handle_call({reset_state}, _From, State) ->
-    {reply, ok, State#{open_buffers => sets:new()}}.
+    {reply, ok, State#{
+        open_buffers => sets:new(),
+        in_progress => [],
+        in_progress_diagnostics => []
+    }}.
 
 -spec handle_cast(any(), state()) -> {noreply, state()}.
 handle_cast({process_requests, Requests}, State0) ->
