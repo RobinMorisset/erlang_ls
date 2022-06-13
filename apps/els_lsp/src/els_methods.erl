@@ -207,7 +207,7 @@ textdocument_didopen(Params, #{open_buffers := OpenBuffers} = State) ->
     #{<<"textDocument">> := #{<<"uri">> := Uri}} = Params,
     Provider = els_text_synchronization_provider,
     Request = {did_open, Params},
-    noresponse = els_provider:handle_request(Provider, Request),
+    _ = els_provider:handle_request(Provider, Request),
     {noresponse, State#{open_buffers => sets:add_element(Uri, OpenBuffers)}}.
 
 %%==============================================================================
@@ -231,7 +231,7 @@ textdocument_didchange(Params, State0) ->
 textdocument_didsave(Params, State) ->
     Provider = els_text_synchronization_provider,
     Request = {did_save, Params},
-    noresponse = els_provider:handle_request(Provider, Request),
+    _ = els_provider:handle_request(Provider, Request),
     {noresponse, State}.
 
 %%==============================================================================
