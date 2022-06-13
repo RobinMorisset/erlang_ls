@@ -651,6 +651,10 @@ refresh_after_watched_file_added(Config) ->
 
 -spec ignore_open_watched_file_added(config()) -> ok.
 ignore_open_watched_file_added(Config) ->
+    dbg:tracer(),
+    dbg:p(all, c),
+    dbg:tpl(els_server, x),
+    dbg:tpl(els_text_synchronization_provider, x),
     %% Before
     UriA = ?config(watched_file_a_uri, Config),
     UriB = ?config(watched_file_b_uri, Config),
