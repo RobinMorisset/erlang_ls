@@ -435,7 +435,7 @@ textdocument_preparecallhierarchy(Params, State) ->
 %% textDocument/signatureHelp
 %%==============================================================================
 
--spec textdocument_signaturehelp(params(), state()) -> result().
+-spec textdocument_signaturehelp(params(), els_server:state()) -> result().
 textdocument_signaturehelp(Params, State) ->
     Provider = els_signature_help_provider,
     {response, Response} =
