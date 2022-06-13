@@ -198,7 +198,7 @@ exit(_Params, State) ->
     Provider = els_general_provider,
     Request = {exit, #{status => maps:get(status, State)}},
     {response, _Response} = els_provider:handle_request(Provider, Request),
-    {noresponse, #{}}.
+    {noresponse, State}.
 
 %%==============================================================================
 %% textDocument/didopen
