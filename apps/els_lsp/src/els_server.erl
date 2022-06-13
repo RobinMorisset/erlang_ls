@@ -132,6 +132,7 @@ handle_call({set_io_device, IoDevice}, _From, State) ->
     {reply, ok, State#{io_device := IoDevice}};
 handle_call({reset_state}, _From, State) ->
     {reply, ok, State#{
+        status => started,
         open_buffers => sets:new(),
         in_progress => [],
         in_progress_diagnostics => []
