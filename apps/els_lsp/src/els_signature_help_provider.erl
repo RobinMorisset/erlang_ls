@@ -26,7 +26,8 @@ trigger_characters() ->
 is_enabled() ->
     false.
 
--spec handle_request(els_provider:request()) -> {response, signature_help() | null}.
+-spec handle_request(els_provider:provider_request()) ->
+    {response, signature_help() | null}.
 handle_request({signature_help, Params}) ->
     #{
         <<"position">> := #{

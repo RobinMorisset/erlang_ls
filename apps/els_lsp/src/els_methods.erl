@@ -49,7 +49,9 @@
     | {error, params(), els_server:state()}
     | {noresponse, els_server:state()}
     | {noresponse, uri(), pid(), els_server:state()}
-    | {notification, binary(), params(), els_server:state()}.
+    | {notification, binary(), params(), els_server:state()}
+    | {diagnostics, uri(), [pid()], els_server:state()}
+    | {async, uri(), pid(), els_server:state()}.
 -type request_type() :: notification | request.
 
 %%==============================================================================
@@ -207,8 +209,8 @@ textdocument_didopen(Params, #{open_buffers := OpenBuffers} = State) ->
     #{<<"textDocument">> := #{<<"uri">> := Uri}} = Params,
     Provider = els_text_synchronization_provider,
     Request = {did_open, Params},
-    _ = els_provider:handle_request(Provider, Request),
-    {noresponse, State#{open_buffers => sets:add_element(Uri, OpenBuffers)}}.
+    {diagnostics, Uri, Jobs} = els_provider:handle_request(Provider, Request),
+    {diagnostics, Uri, Jobs, State#{open_buffers => sets:add_element(Uri, OpenBuffers)}}.
 
 %%==============================================================================
 %% textDocument/didchange
@@ -231,8 +233,8 @@ textdocument_didchange(Params, State0) ->
 textdocument_didsave(Params, State) ->
     Provider = els_text_synchronization_provider,
     Request = {did_save, Params},
-    _ = els_provider:handle_request(Provider, Request),
-    {noresponse, State}.
+    {diagnostics, Uri, Jobs} = els_provider:handle_request(Provider, Request),
+    {diagnostics, Uri, Jobs, State}.
 
 %%==============================================================================
 %% textDocument/didclose
